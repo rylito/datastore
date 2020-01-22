@@ -279,7 +279,7 @@ function DataStore(load_data){
         for(const pair of this){
             let col_name = pair[0]
             let val = pair[1]
-            row_dict[col_name] = (val instanceof ColIter) ? val.as_dict() : val
+            row_dict[col_name] = (val instanceof ColIter) ? val.dict() : val
         }
         return row_dict
     }

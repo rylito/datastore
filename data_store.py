@@ -93,7 +93,7 @@ class ColIter(object):
     def exclude(self, col_names_list):
         #TODO slightly different approach in JS - iterated over mapped table._col_defs. re-port?
         col_names_list = _as_list(col_names_list)
-        self._filtered_col_indexes = sorted(col_index for col_name, col_index in self._table_obj._col_name_index_map.iteritems() if col_name not in col_names_list)
+        self._filtered_col_indexes = sorted(col_index for col_name, col_index in self._table_obj._col_name_index_map.items() if col_name not in col_names_list)
 
     def __len__(self):
         return len(self._filtered_col_indexes)
@@ -270,19 +270,19 @@ class DataStore(object):
     def __init__(self, load_data):
         self._table_dict = {}
 
-        for table_name, table_data in load_data.iteritems():
+        for table_name, table_data in load_data.items():
             table = Table(table_name, table_data)
             self._table_dict[table.name] = table
 
-        for table in self._table_dict.itervalues():
+        for table in self._table_dict.values():
             table.init(self._table_dict)
 
     @property
     def schema(self):
-        return {table_name: table_obj.schema for table_name, table_obj in self._table_dict.iteritems()}
+        return {table_name: table_obj.schema for table_name, table_obj in self._table_dict.items()}
 
     def serialize(self):
-        return {table_name: table_obj.serialize() for table_name, table_obj in self._table_dict.iteritems()}
+        return {table_name: table_obj.serialize() for table_name, table_obj in self._table_dict.items()}
 
     def select(self, table_name):
         return RowIter(self._table_dict[table_name])
